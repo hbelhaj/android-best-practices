@@ -10,7 +10,7 @@ Leçons apprises par les developpeurs Android de [Futurice](http://www.futurice.
 #### Mettre les mots de passe et les données sensibles dans le fichier gradle.properties
 #### Ne pas écrire son propre client HTTP, utiliser les librairies Volley ou OkHttp
 #### Utiliser la librairie Jackson pour parser les données au format JSON
-#### Eviter d'utiliser Guava et ne pas trop utiliser de libraries à cause de la *limite des 65k méthodes*
+#### Eviter d'utiliser Guava et ne pas trop utiliser de librairies à cause de la *limite des 65k méthodes*
 #### Utiliser des fragments pour représenter une interface graphique
 #### Utiliser les activités uniquement pour gérer les fragments
 #### Les fichiers XMLs sont aussi du code, penser à bien les organiser
@@ -86,13 +86,13 @@ nouvelle-structure
 
 La principale différence est que la nouvelle structure sépare explicitement `source sets` (`main`, `androidTest`), résultant d'un des concepts de Gradle. Vous pourriez par exemple ajouter deux dossiers `payant` `gratuit` dans le dossier `src`qui aura donc le code source de la version payante et de la version gratuite de votre application.
 
-Le fait d'avoir un dossier global `app` permet de distinguer facilement votre application d'autre libraries (ex.: `library-foobar`) qui seraient référencées dans votre application. Le fichier `settings.gradle` garde les références de ces librairies qui pourront ensuite être référencées dans `app/build.gradle`.
+Le fait d'avoir un dossier global `app` permet de distinguer facilement votre application d'autre librairies (ex.: `library-foobar`) qui seraient référencées dans votre application. Le fichier `settings.gradle` garde les références de ces librairies qui pourront ensuite être référencées dans `app/build.gradle`.
 
 ### Configuration de Gradle
 
 **Structure générale.** Se référencer à la documentation [Google's guide on Gradle for Android](http://tools.android.com/tech-docs/new-build-system/user-guide)
 
-**Petites tâches.** A la place d'écrire des scripts (shell, Python, Perl, etc), faites des tâches dans Gradle. Se référencer à la documation [Gradle's documentation](http://www.gradle.org/docs/current/userguide/userguide_single.html#N10CBF) pour plus de détails.
+**Petites tâches.** A la place d'écrire des scripts (shell, Python, Perl, etc), faites des tâches dans Gradle. Se référencer à la documentation [Gradle's documentation](http://www.gradle.org/docs/current/userguide/userguide_single.html#N10CBF) pour plus de détails.
 
 **Mots de passe.** Dans le fichier `build.gradle` de votre application, vous aurez besoin de définir `signingConfigs` pour votre Release. Voici ce que vous devez éviter de faire :
 
@@ -134,7 +134,7 @@ signingConfigs {
 }
 ```
 
-**Préférez la résolution de dépendences Maven plutôt que l'importation de fichiers .jar.** Si vous importez explicitement des fichiers .jars dans votre projet, ceux-ci seront fixés dans une version, par exemple `2.1.1`. Télécharger et s'occuper des mises à jour est un tâche lourde et rébarbative à effectuer, Maven résoud ce problème d'une facçon élégante. Par exemple:
+**Préférez la résolution de dépendences Maven plutôt que l'importation de fichiers .jar.** Si vous importez explicitement des fichiers .jars dans votre projet, ceux-ci seront fixés dans une version, par exemple `2.1.1`. Télécharger et s'occuper des mises à jour est une tâche lourde e à effectuer, Maven résoud ce problème d'une façon élégante. Par exemple:
 
 ```groovy
 dependencies {
@@ -144,7 +144,7 @@ dependencies {
 ```
 
 **Eviter les résolutions dynamiques de dépendence Maven**
-Evitez l'utilisation de versions dynamiques des librairies comme `2.1.+` car cela pourrait mener à des builds de votre application instables ou à des différénces subtiles du comportement de votre application entre vos différents builds. L'utilisation de versions statiques des librairies comme `2.1.1` permet de créer des environnements de développement plus stables et prédictibles.
+Evitez l'utilisation de versions dynamiques des librairies comme `2.1.+` car cela pourrait mener à des builds instable  de votre application  ou à des différences subtiles du comportement de votre application entre vos différents builds. L'utilisation de versions statiques des librairies comme `2.1.1` permet de créer des environnements de développement plus stables et prédictibles.
 
 ### IDEs et éditeurs de texte/code
 
@@ -158,9 +158,9 @@ Peu importe ce que vous utilisez, veuillez vous assurer que vous avez la nouvell
 
 ### Librairies
 
-**[Jackson](http://wiki.fasterxml.com/JacksonHome)** est une librairie capable de convertir les Objets en JSON et vice-versa. [Gson](https://code.google.com/p/google-gson/) est une librairie similaire et aussi populaire cependant nous trouvons que Jackson est plus performante car elle supporte différentes façons de traiter le JSON : en streaming, avec une structure d'arbre et le mapping traditionnel JSON-POJO. Garder en tête toutefois que Jackson est une librairie plus conséquente que GSON donc selon votre cas vous serez peut-être amené à choisir GSON pour éviter la limitation des 65k méthodes. Autres alternatives : [Json-smart](https://code.google.com/p/json-smart/) et [Boon JSON](https://github.com/RichardHightower/boon/wiki/Boon-JSON-in-five-minutes)
+**[Jackson](http://wiki.fasterxml.com/JacksonHome)** est une librairie capable de convertir les Objets en JSON et vice-versa. [Gson](https://code.google.com/p/google-gson/) est une librairie similaire et aussi populaire cependant nous trouvons que Jackson est plus performante car elle permet  différentes façons de traiter le JSON : en streaming, avec une structure d'arbre et le mapping traditionnel JSON-POJO. Garder en tête toutefois que Jackson est une librairie plus conséquente que GSON donc selon votre cas vous serez peut-être amené à choisir GSON pour éviter la limitation des 65k méthodes. Autres alternatives : [Json-smart](https://code.google.com/p/json-smart/) et [Boon JSON](https://github.com/RichardHightower/boon/wiki/Boon-JSON-in-five-minutes)
 
-**Réseaux, cache et images.** Il existe plusieurs solutions pour faire des requètes sur un backend. Vous pouvez utiliser [Volley](https://android.googlesource.com/platform/frameworks/volley) ou [Retrofit](http://square.github.io/retrofit/). Volley apporte aussi des helpers permettant de charger et mettre en cache des images. Si vous choisissez Retrofit, nous vous conseillons d'utiliser [Picasso](http://square.github.io/picasso/) pour charger et mettre en cache les images et [OkHttp](http://square.github.io/okhttp/) pour faire des requètes HTTP performantes. Les trois librairies Retrofit, Picasso et OkHttp ont été créees par la même entreprise donc elles se complètent plutôt bien. [OkHttp can also be used in connection with Volley](http://stackoverflow.com/questions/24375043/how-to-implement-android-volley-with-okhttp-2-0/24951835#24951835).
+**Réseaux, cache et images.** Il existe plusieurs solutions pour faire des requètes sur un backend. Vous pouvez utiliser [Volley](https://android.googlesource.com/platform/frameworks/volley) ou [Retrofit](http://square.github.io/retrofit/). Volley apporte aussi des helpers permettant de charger et mettre en cache des images. Si vous choisissez Retrofit, nous vous conseillons d'utiliser [Picasso](http://square.github.io/picasso/) pour charger et mettre en cache les images et [OkHttp](http://square.github.io/okhttp/) pour faire des requètes HTTP performantes. Les trois librairies Retrofit, Picasso et OkHttp ont été créees par la même entreprise donc elles se complètent plutôt bien. [OkHttp peuy être utilisé en connection avec Volley](http://stackoverflow.com/questions/24375043/how-to-implement-android-volley-with-okhttp-2-0/24951835#24951835).
 
 **RxJava** est une librairie pour faire de la programmation réactive, en d'autres termes, elle permet de gérer des évènements asynchrones. C'est un paradigme puissant et prometteur bien qu'il puisse être déroutant du fait de ses différences. Nous vous recommandons de faire très attention avant d'utiliser cette librairie pour réaliser l'architecture de votre application. Parmi nous projets, certains ont été réalisés avec RxJava. Si vous avez besoin d'aide adressez vous à l'une de ces personnes : Timo Tuominen, Olli Salonen, Andre Medeiros, Mark Voit, Antti Lammi, Vera Izrailit, Juha Ristolainen. Nous avons écris des articles dessus : [[1]](http://blog.futurice.com/tech-pick-of-the-week-rx-for-net-and-rxjava-for-android), [[2]](http://blog.futurice.com/top-7-tips-for-rxjava-on-android), [[3]](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754), [[4]](http://blog.futurice.com/android-development-has-its-own-swift).
 
@@ -203,7 +203,7 @@ Android Studio propose un support pour l'utilisation de lambdas Java8. Si vous d
 
 Il n'y a pas d'accord global sur la meilleure façon d'oganiser une architecture Android avec des activités et des fragments ni au sein de la communauté Android ni au sein des développeurs Futurice. Square a même [une librairie pour contruire une architecture à partir de Views principalement](https://github.com/square/mortar), ce qui supprime le besoin d'utiliser des fragments. Cela n'est cependant pas considéré comme une pratique largement recommandable par la communauté Android.
 
-De part l'histoire de l'API Android, vous pouvez considérer les Fragments comme des petites parties graphiques de l'écran. En d'autres termes, les Fragments sont en temps normal liés à l'interface graphique. Les Activities peuvent être considérées comme des controlleurs, elles sont particulièrement importante grâce à leurs cycles de vie et pour gérer les changements d'états. Vous allez cependant pouvoir constater certaines variations dans ces rôles : les activités peuvent être liées à l'interface graphique ([delivering transitions between screens](https://developer.android.com/about/versions/lollipop.html)), et [les fragments peuvent prendre le rôle d'un controlleur](http://developer.android.com/guide/components/fragments.html#AddingWithoutUI). Nous vous suggérons d'agir consciencieusement de vous informer avant de prendre des décisions car il y a des avantages et des inconvénients à chaque méthode. Voici quelques conseils à prendre avec des pincettes sur lesquels il faut rester vigilant :
+De part l'histoire de l'API Android, vous pouvez considérer les Fragments comme des petites parties graphiques de l'écran. En d'autres termes, les Fragments sont en temps normal liés à l'interface graphique. Les Activities peuvent être considérées comme des controlleurs, elles sont particulièrement importante grâce à leurs cycles de vie et pour gérer les changements d'états. Vous allez cependant pouvoir constater certaines variations dans ces rôles : les activités peuvent être liées à l'interface graphique ([faire une transition entre des ecrans](https://developer.android.com/about/versions/lollipop.html)), et [les fragments peuvent prendre le rôle d'un controlleur](http://developer.android.com/guide/components/fragments.html#AddingWithoutUI). Nous vous suggérons d'agir consciencieusement et de vous informer avant de prendre des décisions car il y a des avantages et des inconvénients à chaque méthode. Voici quelques conseils à prendre avec des pincettes sur lesquels il faut rester vigilant :
 
 - Evitez de [mettre trop de fragments les uns dans les autres](https://developer.android.com/about/versions/android-4.2.html#NestedFragments) à cause du [bug matryoshka](http://delyan.me/android-s-matryoshka-problem/). Utilisez donc des fragments à l'intérieur d'autres lorsque cela a du sens (par exemple des fragments dans un ViewPager horizontal) ou lorsque vous savez ce que vous faites.
 - Evitez de mettre trop de code dans les activités. Lorsque cela est possible, laissez les aussi légers que possible en tant que conteneurs et utilisez les majoritairement pour gérer les cycles de vie ou d'autres évènement importants liés à l'API android. Préférez utiliser des fragments seuls plutôt que des activités seules - mettez le code lié à l'interface graphique dans l'activité du fragment. Cela vous permet de le rendre réutilisable dans le cas ou vous souhaiteriez le mettre dans une interface avec des onglets par exemple ou dans une interface contenant plusieurs fragments sur une tablette. Evitez d'avoir des activités sans un fragment qui leur correspond sauf si vous savez ce que vous faites.
@@ -211,11 +211,11 @@ De part l'histoire de l'API Android, vous pouvez considérer les Fragments comme
 
 ### L'architecture des packages java
 
-L'architecture java des applications android peut être vue approximativement comme du [Model-Vue-Controlleur](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller). Avec Android, [les fragments et les activités sont des controlleurs](http://www.informit.com/articles/article.aspx?p=2126865). D'un autre côté, ils sont une partie intégrante de l'interface utilisateur, ceux sont donc aussi des vues.
+L'architecture java des applications android peut être vue approximativement comme du [Model-Vue-Controlleur](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller). Avec Android, [les fragments et les activités sont des controlleurs](http://www.informit.com/articles/article.aspx?p=2126865). D'un autre côté, ils sont une partie intégrante de l'interface utilisateur, ce sont donc aussi des vues.
 
-C'est pour cette raison qu'il est dur de classifier les fragments (ou les activités) comme uniquement des controlleurs ou des vues. Il est préférable de les laisser dans leur package `fragments`. Les activités peuvent rester dans le package de plus au niveau tant que vous suivez les conseils de la section précédente. Si vous comptez utiliser plus de 2 ou 3 activités, faites un package `activities`.
+C'est pour cette raison qu'il est dur de classifier les fragments (ou les activités) comme uniquement des controlleurs ou des vues. Il est préférable de les laisser dans leur package `fragments`. Les activités peuvent rester dans le package de plus haut niveau tant que vous suivez les conseils de la section précédente. Si vous comptez utiliser plus de 2 ou 3 activités, faites un package `activities`.
 
-Autrement, l'architecture ressemble à celle d'un MVC typique avec un package `models` contenant les objects POJOs à être remplis à partir des réponses des API et à l'aide d'un parser JSON. Mettre aussi un package `views` contenant toutes vos vues customisées, les notifications, les bar d'actions, les widgets, etc. Les Adapters sont une autre paire de manche, car ils se situent entre les data et les vues. Cependant ils ont besoin d'exporter une vue via la méthode `getView()` donc vous pouvez inclure les Adapters dans un sous package `adapters` dans le package `views`.
+Autrement, l'architecture ressemble à celle d'un MVC typique avec un package `models` contenant les objects POJOs à être remplis à partir des réponses des API et à l'aide d'un parser JSON. Mettre aussi un package `views` contenant toutes vos vues customisées, les notifications, les bar d'actions, les widgets, etc. Les Adapters sont une autre paire de manche, car ils se situent entre les data et les vues. Cependant ils ont aussi besoin d'exporter une vue via la méthode `getView()` donc vous pouvez inclure les Adapters dans un sous package `adapters` dans le package `views`.
 
 Certains controlleurs ont une porté au niveau de l'application et sont proche du système Android. Ceux-ci peuvent être placés dans le package `managers`. D'autres classes diverses manipulant des données comme "DateUtils" peuvent être placées dans le package `utils`. Les classes qui s'occupent d'interagir avec le backend restent dans le package `network`.
 
@@ -404,7 +404,7 @@ N'écrivez pas les strings en majuscules. Basez vous sur les conventions des tex
 <string name="error.message.call">L'appel a échoué</string>
 ```
 
-**Evitez d'avoir une hiérarchie trop profonde de vues.** De temps à autres vous serez tenté d'ajouter simplement un autre LinearLayout pour accomplir l'arrangement des vues que vous souahité. Ce genre de situation peut arriver :
+**Evitez d'avoir une hiérarchie trop profonde de vues.** De temps à autres vous serez tenté d'ajouter simplement un autre LinearLayout pour accomplir l'arrangement des vues que vous souhaité. Ce genre de situation peut arriver :
 
 ```xml
 <LinearLayout
